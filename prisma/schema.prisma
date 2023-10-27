@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String
+  slug     String
+  imageUrl String
+  product  Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id              String   @id @default(uuid())
+  name            String
+  slug            String
+  description     String
+  basePrice       Decimal  @db.Decimal(8, 2) // quero que o meu preco tenha 8 casas antes da visrgula e 2 casas depois da virgula
+  imageUrl        String
+  category        Category @relation(fields: [categoryId], references: [id])
+  categoryId      String
+  discountPercent Int      @default(0)
+
+  // total price nao sera armazenado em banco
+  @@map("products")
+}
