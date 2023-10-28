@@ -1,3 +1,4 @@
+import { Footer } from '@/components/ui/footer'
 import { Header } from '@/components/ui/header'
 import { AuthProvider } from '@/providers/auth'
 import type { Metadata } from 'next'
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <Header />
           {children}
+          <Footer />
         </AuthProvider>
       </body>
     </html>
